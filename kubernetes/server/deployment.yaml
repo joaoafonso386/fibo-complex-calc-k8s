@@ -17,3 +17,19 @@ spec:
         image: zigoto/fibo-server
         ports:
         - containerPort: 5000
+      env:
+        - name: REDIS_HOST
+          value: redis-service
+        - name: REDIS_PORT
+          value: 6379
+        - name: PGUSERS
+          value: postgres
+        - name: PGHOST
+          value: postgres-service
+        - name: PGPORT
+          value: 5432
+        - name: PGDATABASE
+          value: postgres
+          
+        
+
