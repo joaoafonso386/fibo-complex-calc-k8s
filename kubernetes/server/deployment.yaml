@@ -22,7 +22,7 @@ spec:
             value: redis-service
           - name: REDIS_PORT
             value: "6379"
-          - name: PGUSERS
+          - name: PGUSER
             value: postgres
           - name: PGHOST
             value: postgres-service

@@ -17,7 +17,7 @@ spec:
             name: client-service
             port: 
               number: 3000
-      - path: /?(.*)
+      - path: /api/?(.*)
         pathType: ImplementationSpecific
         backend:
           service:
