@@ -7,4 +7,9 @@ fi
 
 sh ./scripts/add_namespace.sh
 
-kubectl apply -f $1 -n fibo
+echo -e "\e[1;31mApplying $# k8s resources: $@\e[0m"
+
+for resource in "$@"; do
+    kubectl apply -f "$resource" -n fibo
+done
+
