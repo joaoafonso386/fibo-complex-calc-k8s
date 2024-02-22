@@ -5,7 +5,6 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-
 sh ./scripts/add_namespace.sh
 
 kubectl apply -f $1 -n fibo
