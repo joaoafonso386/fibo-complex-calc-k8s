@@ -7,3 +7,6 @@ before_install:
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - glcoud auth activate-service-account --key-file service_account.json
+- gcloud config set project fibo-complex-calc-k8s
+- glcoud config set compute/zone europe-west4-a
+- gcloud container clusters get-credentials fibo-cluster
