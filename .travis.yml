@@ -10,3 +10,8 @@ before_install:
 - gcloud config set project fibo-complex-calc-k8s
 - glcoud config set compute/zone europe-west4-a
 - gcloud container clusters get-credentials fibo-cluster
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker build -t zigoto/fibo-client -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true zigoto/fibo-client npm test
