@@ -15,3 +15,10 @@ before_install:
 
 script:
   - docker run -e CI=true zigoto/fibo-client npm test
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: main
+  
