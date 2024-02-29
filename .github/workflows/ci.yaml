@@ -45,7 +45,6 @@ jobs:
        - name: Docker login
          run: |-
           echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          echo $(pwd)
        
        - name: Docker Build
          run: |-
@@ -62,3 +61,13 @@ jobs:
           docker push zigoto/fibo-client:${{ env.SHA }}
           docker push zigoto/fibo-server:${{ env.SHA }}
           docker push zigoto/fibo-worker:${{ env.SHA }}
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Apply Kubernetes Resources
+        working-directory: ./kubernetes
+        run: |-
+          sh scripts/ci/install.sh
+          
