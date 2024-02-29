@@ -15,7 +15,7 @@ jobs:
 
       - name: Run Client Unit Tests
         run: |-
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker build -t zigoto/fibo-client -f ./client/Dockerfile.dev ./client
           docker run -e CI=true zigoto/fibo-client npm test
   
