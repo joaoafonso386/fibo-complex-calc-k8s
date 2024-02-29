@@ -56,11 +56,11 @@ jobs:
 
       - name: Docker Push
         run: |-
-            docker push rallycoding/multi-client-k8s-gh:latest
-            docker push rallycoding/multi-server-k8s-gh:latest
-            docker push rallycoding/multi-worker-k8s-gh:latest
+            docker push zigoto/fibo-client:latest
+            docker push zigoto/fibo-server:latest
+            docker push zigoto/fibo-worker:latest
 
-            docker push rallycoding/multi-client-k8s-gh:${{ env.SHA }}
-            docker push rallycoding/multi-server-k8s-gh:${{ env.SHA }}
-            docker push rallycoding/multi-worker-k8s-gh:${{ env.SHA }}
+            docker push zigoto/fibo-client:${{ env.SHA }}
+            docker push zigoto/fibo-server:${{ env.SHA }}
+            docker push zigoto/fibo-worker:${{ env.SHA }}
 
