@@ -38,7 +38,7 @@ jobs:
         with:
           cluster_name: fibo-cluster
           location: europe-west4-a
-  docker-build:
+  docker:
     runs-on: ubuntu-latest
     steps:
        - uses: actions/checkout@v3
@@ -49,18 +49,12 @@ jobs:
           docker build -t zigoto/fibo-server:latest -t zigoto/fibo-server:${{ env.SHA }} -f ./server/Dockerfile ./server
           docker build -t zigoto/fibo-worker:latest -t zigoto/fibo-worker:${{ env.SHA }} -f ./worker/Dockerfile ./worker
 
-  docker-push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+       - name: Docker Push
+         run: |-
+          docker push zigoto/fibo-client:latest
+          docker push zigoto/fibo-server:latest
+          docker push zigoto/fibo-worker:latest
 
-      - name: Docker Push
-        run: |-
-            docker push zigoto/fibo-client:latest
-            docker push zigoto/fibo-server:latest
-            docker push zigoto/fibo-worker:latest
-
-            docker push zigoto/fibo-client:${{ env.SHA }}
-            docker push zigoto/fibo-server:${{ env.SHA }}
-            docker push zigoto/fibo-worker:${{ env.SHA }}
-
+          docker push zigoto/fibo-client:${{ env.SHA }}
+          docker push zigoto/fibo-server:${{ env.SHA }}
+          docker push zigoto/fibo-worker:${{ env.SHA }}
