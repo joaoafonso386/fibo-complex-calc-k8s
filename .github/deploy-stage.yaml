@@ -1,0 +1,20 @@
+name: Deploy fibo-complex-calc-k8s
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SHA: $(git rev-parse HEAD)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Client Unit Tests
+        run: |-
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t zigoto/fibo-client -f ./client/Dockerfile.dev ./client
+          docker run -e CI=true zigoto/fibo-client npm test
