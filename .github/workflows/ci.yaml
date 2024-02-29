@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Application
 on:
   push:
     branches:
@@ -10,9 +10,9 @@ env:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-
       - name: Run Client Unit Tests
         run: |-
           echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
@@ -34,8 +34,16 @@ jobs:
           gcloud --quiet auth configure-docker
 
       - name: Get Credentials
-        uses: google-github-actions/get-gke-credentials@v0
+        uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: fibo-cluster
           location: europe-west4-a
-  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Build
+         run: |-
+          docker build -t zigoto/fibo-client:latest -t zigoto/fibo-client:${{ env.SHA }} -f ./client/Dockerfile ./client
+          docker build -t zigoto/fibo-server:latest -t zigoto/fibo-server:${{ env.SHA }} -f ./server/Dockerfile ./server
+          docker build -t zigoto/fibo-worker:latest -t zigoto/fibo-worker:${{ env.SHA }} -f ./worker/Dockerfile ./worker
+
