@@ -1,4 +1,4 @@
-name: Deploy fibo-complex-calc-k8s
+name: Unit tests
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ env:
   SHA: $(git rev-parse HEAD)
 
 jobs:
-  build-app:
+  client:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
