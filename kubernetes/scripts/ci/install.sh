@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-for dir in */ *.yaml; do
+$INGRESS_EXISTS=$(kubectl get -f ingress.yaml -n ingress-nginx --ignore-not-found)
+
+for dir in */; do
 
     if [ "$(basename "$dir")" != "scripts" ]; then
         kubectl apply -f $dir || exit 1 
