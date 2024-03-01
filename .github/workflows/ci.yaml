@@ -72,6 +72,6 @@ jobs:
       - name: Apply Kubernetes Resources
         working-directory: ./kubernetes
         run: |-
-          sh scripts/ci/install.sh
+          sh ./scripts/ci/install.sh
  
           
