@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-$INGRESS_EXISTS=$(kubectl get -f ingress.yaml -n ingress-nginx --ignore-not-found)
+INGRESS_EXISTS=$(kubectl get -f ingress.yaml -n ingress-nginx --ignore-not-found)
 
 for dir in */; do
 
