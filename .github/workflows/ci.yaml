@@ -63,6 +63,7 @@ jobs:
           docker push zigoto/fibo-worker:${{ env.SHA }}
   kubernetes:
     runs-on: ubuntu-latest
+    needs: [gcloud]
     steps:
       - uses: actions/checkout@v3
 
