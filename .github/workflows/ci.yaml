@@ -17,31 +17,6 @@ jobs:
         run: |-
           docker build -t zigoto/fibo-client -f ./client/Dockerfile.dev ./client
           docker run -e CI=true zigoto/fibo-client npm test
-    
-  gcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set Service Key
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
-      
-      - name: Set Project
-        uses: google-github-actions/setup-gcloud@v0
-        with:
-          project_id: fibo-complex-calc-k8s
-
-      - name: Auth
-        run: |-
-          gcloud --quiet auth configure-docker
-
-      - name: Get Credentials
-        uses: google-github-actions/get-gke-credentials@v2
-        with:
-          cluster_name: fibo-cluster
-          location: europe-west4-a
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -66,14 +41,36 @@ jobs:
           docker push zigoto/fibo-client:${{ env.SHA }}
           docker push zigoto/fibo-server:${{ env.SHA }}
           docker push zigoto/fibo-worker:${{ env.SHA }}
-  kubernetes:
+    
+  deploy-kubernetes-to-gcloud:
     runs-on: ubuntu-latest
-    needs: [gcloud]
+    needs: [docker]
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set Service Key
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+      
+      - name: Set Project
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: fibo-complex-calc-k8s
+
+      - name: Auth
+        run: |-
+          gcloud --quiet auth configure-docker
+
+      - name: Get Credentials
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: fibo-cluster
+          location: europe-west4-a
 
       - name: Apply Kubernetes Resources
         working-directory: ./kubernetes
         run: |-
           sh scripts/ci/install.sh
+ 
           
