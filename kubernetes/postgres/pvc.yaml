@@ -3,13 +3,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
 spec:
-  storageClassName: standard-rwo
   resources:
     requests:
       storage: 2Gi
   accessModes:
     - ReadWriteOnce
-  volumeMode: Filesystem
   selector:
     matchLabels:
       component: postgres
