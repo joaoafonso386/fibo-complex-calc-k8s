@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
 spec:
-  storageClassName: csi
+  storageClassName: standard-rwo
   resources:
     requests:
       storage: 2Gi
