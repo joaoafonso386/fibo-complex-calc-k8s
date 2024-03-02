@@ -6,7 +6,7 @@ spec:
   storageClassName: standard-rwo
   resources:
     requests:
-      storage: 2Gi
+      storage: 10Gi
   accessModes:
     - ReadWriteOnce
   selector:
