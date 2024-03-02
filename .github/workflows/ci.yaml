@@ -55,7 +55,7 @@ jobs:
           credentials_json: '${{ secrets.GKE_SA_KEY }}'
       
       - name: Set Project
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: fibo-complex-calc-k8s
 
