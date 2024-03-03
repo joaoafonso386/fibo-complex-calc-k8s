@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
 spec:
-  storageClassName: standard-rwo 
+  storageClassName: premium-rwo
   resources:
     requests:
       storage: 20Gi
